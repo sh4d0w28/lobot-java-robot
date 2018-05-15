@@ -32,24 +32,6 @@ public class Controller {
         return this;
     }
 
-    public Controller addSlow(BotCommandEnum cmd, int param) {
-        if(cmd == BotCommandEnum.HAND_CTRL && handCtrlState != param) {
-            if(handCtrlState > param) {
-                while(handCtrlState > param) {
-                    commands.add(new BotCommand(cmd, handCtrlState, 100L));
-                    handCtrlState -= 4;
-                }
-            } else if(handCtrlState < param) {
-                while(handCtrlState < param) {
-                    commands.add(new BotCommand(cmd, handCtrlState, 100L));
-                    handCtrlState += 4;
-                }
-            }
-        }
-        commands.add(new BotCommand(cmd, param, 0L));
-        return this;
-    }
-
     public void execute() {
         for (BotCommand command : commands) {
             System.out.println(">> " + command.getCommand() + " (" + command.getValue() + ")");
