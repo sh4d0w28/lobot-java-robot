@@ -1,4 +1,4 @@
 language: java
 sudo: false
-pre-script: mvn install:install-file -Dfile=src/main/resources/libs/tinyb.jar -DgeneratePom=1 -DgroupId=org.local -DartifactId=tinyb -Dpackaging=jar -Dversion=1.0
+before_install: mvn install:install-file -Dfile=src/main/resources/libs/tinyb.jar -DgeneratePom=1 -DgroupId=org.local -DartifactId=tinyb -Dpackaging=jar -Dversion=1.0
 script: mvn verify
