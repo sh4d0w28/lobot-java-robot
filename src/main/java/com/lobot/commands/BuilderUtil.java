@@ -1,6 +1,6 @@
 package com.lobot.commands;
 
-import com.lobot.commands.domain.BotCommandEnum;
+import com.lobot.commands.domain.CmdEnum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,7 +98,7 @@ public class BuilderUtil {
         return buildCmd(CMD_SERV, (byte)0x06, Low, High);
     }
 
-    byte[] toBytes(BotCommandEnum command, Integer value) {
+    byte[] toBytes(CmdEnum command, Integer value) {
 
         switch (command) {
             case GRAB:

@@ -1,7 +1,7 @@
 package com.lobot;
 
 import com.lobot.commands.Controller;
-import com.lobot.commands.domain.BotCommandEnum;
+import com.lobot.commands.domain.CmdEnum;
 import com.lobot.connect.Connector;
 import tinyb.BluetoothGattCharacteristic;
 
@@ -12,8 +12,9 @@ public class Application {
         BluetoothGattCharacteristic controlPoint = connector.getControlCharacteristic();
 
         new Controller().of(controlPoint)
-                .add(BotCommandEnum.GRAB_OPEN, 0 )
-                .add(BotCommandEnum.GRAB_TILT, 90 )
+                .add(CmdEnum.GRAB_OPEN, 0 )
+                .add(CmdEnum.GRAB_TILT, 90 )
+                .pause(2000)
                 .execute();
     }
 }

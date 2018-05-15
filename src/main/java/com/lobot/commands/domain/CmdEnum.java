@@ -1,6 +1,8 @@
 package com.lobot.commands.domain;
 
-public enum BotCommandEnum {
+public enum CmdEnum {
+
+    NOP,
 
     GRAB_OPEN,
     GRAB_CLOSE,

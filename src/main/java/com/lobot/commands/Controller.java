@@ -1,16 +1,17 @@
 package com.lobot.commands;
 
 import com.lobot.commands.domain.BotCommand;
-import com.lobot.commands.domain.BotCommandEnum;
+import com.lobot.commands.domain.CmdEnum;
+import lombok.extern.apachecommons.CommonsLog;
+import lombok.extern.java.Log;
 import tinyb.BluetoothGattCharacteristic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+@Log(topic = "cmdlog")
 public class Controller {
-
-    private int handCtrlState = 0;
-
 
     private List<BotCommand> commands;
     private BluetoothGattCharacteristic characteristic;
@@ -23,23 +24,29 @@ public class Controller {
         return this;
     }
 
-    public Controller add(BotCommandEnum cmd, int param) {
-        return add(cmd, param, 0L);
+    public Controller add(CmdEnum cmd, int param) {
+        commands.add(new BotCommand(cmd, param, 0L));
+        return this;
     }
 
-    public Controller add(BotCommandEnum cmd, int param, long delay) {
-        commands.add(new BotCommand(cmd, param, delay));
+    public Controller pause(long delay) {
+        commands.add(new BotCommand(CmdEnum.NOP, null, delay));
         return this;
     }
 
     public void execute() {
         for (BotCommand command : commands) {
-            System.out.println(">> " + command.getCommand() + " (" + command.getValue() + ")");
             byte[] bytes = builderUtil.toBytes(command.getCommand(), command.getValue());
-            try {
-                Thread.sleep(command.getDelayMs());
-            } catch (InterruptedException ex ) {
-                System.out.println("NO DELAY");
+            if(command.getDelayMs() > 0) {
+                log.info("WAIT "  + command.getDelayMs());
+                try {
+                    Thread.sleep(command.getDelayMs());
+                } catch (InterruptedException ex) {
+                    log.warning("WAIT INTERRUPT");
+                }
+                continue;
+            } else {
+                log.info(command.getCommand() + " (" + command.getValue() + ")");
             }
             characteristic.writeValue(bytes);
         }
