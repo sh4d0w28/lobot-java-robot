@@ -3,6 +3,6 @@ sudo: false
 before_install:
   - mvn install:install-file -Dfile=src/main/resources/libs/tinyb.jar -DgeneratePom=1 -DgroupId=org.local -DartifactId=tinyb -Dpackaging=jar -Dversion=1.0
 script:
-  - mvn verify
+  - mvn install:install-file -Dfile=src/main/resources/libs/tinyb.jar -DgeneratePom=1 -DgroupId=org.local -DartifactId=tinyb -Dpackaging=jar -Dversion=1.0 verify
 after_success:
   - bash <(curl -s https://codecov.io/bash)
