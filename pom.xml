@@ -12,7 +12,7 @@
         <dependency>
             <groupId>org.local</groupId>
             <artifactId>tinyb</artifactId>
-            <version>LATEST</version>
+            <version>0.5.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -139,7 +139,7 @@
                         <configuration>
                             <groupId>org.local</groupId>
                             <artifactId>tinyb</artifactId>
-                            <version>1.0</version>
+                            <version>0.5.1</version>
                             <packaging>jar</packaging>
                             <file>${project.basedir}/src/main/resources/libs/tinyb.jar</file>
                             <createChecksum>true</createChecksum>
