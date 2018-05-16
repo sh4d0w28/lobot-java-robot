@@ -7,6 +7,8 @@ import tinyb.BluetoothGattCharacteristic;
 
 public class Application {
 
+    public static Config config = new Config();
+
     public static void main(String[] args) throws InterruptedException {
         Connector connector = new Connector();
         BluetoothGattCharacteristic controlPoint = connector.getControlCharacteristic();

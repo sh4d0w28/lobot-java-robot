@@ -1,7 +1,10 @@
 package com.lobot.connect;
 
+import com.lobot.Config;
+import lombok.Value;
 import tinyb.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -9,8 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Connector {
 
-    private final String bluetoothMac = "3C:A3:08:AC:4A:03";
-    private final String controlserviceUUID = "0000ffe0-0000-1000-8000-00805f9b34fb";
+    private Config config = new Config();
 
     private boolean running = true;
 
@@ -35,7 +37,7 @@ public class Connector {
         return null;
     }
 
-    BluetoothGattService getService(BluetoothDevice device, String UUID) throws InterruptedException {
+    private BluetoothGattService getService(BluetoothDevice device, String UUID) throws InterruptedException {
         System.out.println("Services exposed by device:");
         BluetoothGattService tempService = null;
         List<BluetoothGattService> bluetoothServices = null;
@@ -54,7 +56,7 @@ public class Connector {
         return tempService;
     }
 
-    BluetoothGattCharacteristic getCharacteristic(BluetoothGattService service, String UUID) {
+    private BluetoothGattCharacteristic getCharacteristic(BluetoothGattService service, String UUID) {
         List<BluetoothGattCharacteristic> characteristics = service.getCharacteristics();
         if (characteristics == null)
             return null;
@@ -72,7 +74,7 @@ public class Connector {
         boolean discoveryStarted = manager.startDiscovery();
 
         System.out.println("The discovery started: " + (discoveryStarted ? "true" : "false"));
-        BluetoothDevice sensor = getDevice(bluetoothMac);
+        BluetoothDevice sensor = getDevice(config.getTargetMac());
 
         try {
             manager.stopDiscovery();
@@ -111,7 +113,7 @@ public class Connector {
         });
 
 
-        BluetoothGattService tempService = getService(sensor, controlserviceUUID);
+        BluetoothGattService tempService = getService(sensor, config.getTargetServiceControlUUIID());
 
         if (tempService == null) {
             System.err.println("This device does not have the temperature service we are looking for.");
