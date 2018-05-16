@@ -13,6 +13,7 @@ public class Config {
 
     private String targetMac;
     private String targetServiceControlUUIID;
+    private String targetCharacteristicControlUUID;
 
     public Config() {
         Ini ini = new Ini();
@@ -25,6 +26,7 @@ public class Config {
         Profile.Section defaultSecttion =  ini.get("bluetooth");
         this.targetMac = defaultSecttion.get("target.mac");
         this.targetServiceControlUUIID = defaultSecttion.get("target.service.uuid");
+        this.targetCharacteristicControlUUID = defaultSecttion.get("target.characteristic.uuid");
     }
 
     public String getTargetMac() {
@@ -33,5 +35,9 @@ public class Config {
 
     public String getTargetServiceControlUUIID() {
         return targetServiceControlUUIID;
+    }
+
+    public String getTargetCharacteristicControlUUID() {
+        return targetCharacteristicControlUUID;
     }
 }
