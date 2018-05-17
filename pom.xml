@@ -131,7 +131,7 @@
                 <version>2.5.2</version>
                 <executions>
                     <execution>
-                        <id>org.sputnikdev:bluetooth-manager-tinyb</id>
+                        <id>org.local:tinyb</id>
                         <phase>initialize</phase>
                         <goals>
                             <goal>install-file</goal>

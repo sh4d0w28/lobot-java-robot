@@ -18,7 +18,11 @@ public class Application {
         new Controller().of(controlPoint)
                 .add(CmdEnum.GRAB_OPEN, 0 )
                 .add(CmdEnum.GRAB_TILT, 90 )
+                .add(CmdEnum.HAND_CTRL, 20)
                 .pause(2000)
+                .add(CmdEnum.HAND_CTRL, 0)
+                .add(CmdEnum.GRAB_TILT, 0)
+                .add(CmdEnum.GRAB_CLOSE, 0)
                 .execute();
     }
 }
