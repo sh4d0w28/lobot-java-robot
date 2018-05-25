@@ -13,6 +13,12 @@ public class Validator {
     public static final int HAND_ANGLE_MIN = -85;
     public static final int HAND_ANGLE_MAX = 85;
 
+    public static final int ELBOW_ANGLE_MIN = -90;
+    public static final int ELBOW_ANGLE_MAX = 45;
+
+    public static final int ARM_ANGLE_MIN = -45;
+    public static final int ARM_ANGLE_MAX = 90;
+
     public static int validateFor(CmdEnum cmd, int value) {
         switch (cmd) {
             case GRAB:
@@ -45,11 +51,11 @@ public class Validator {
     }
 
     public static int validateArmAngle(int angle) {
-        return checkBorders(-45, angle, 90);
+        return checkBorders(ARM_ANGLE_MIN, angle, ARM_ANGLE_MAX);
     }
 
     public static int validateElbowAngle(int angle) {
-        return checkBorders(-90, angle, 45);
+        return checkBorders(ELBOW_ANGLE_MIN, angle, ELBOW_ANGLE_MAX);
     }
 
     public static int validateHandAngle(int angle) {
