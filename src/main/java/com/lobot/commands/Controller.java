@@ -6,6 +6,7 @@ import lombok.extern.java.Log;
 import tinyb.BluetoothGattCharacteristic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Log(topic = "cmdlog")
@@ -19,10 +20,30 @@ public class Controller {
     private static final String LOG_CMD = "%s %d";
     private static final String LOG_INTERRUPT = "WAIT INTERRUPTED";
 
+    public HashMap<CmdEnum, Integer> status = null;
+
+    private boolean debugMode = false;
+
     public Controller of(BluetoothGattCharacteristic characteristic) {
+        return of(characteristic, false);
+    }
+
+    public Controller of(BluetoothGattCharacteristic characteristic, boolean debugMode) {
+        initStatus();
         this.commands = new ArrayList<>();
         this.characteristic = characteristic;
+        this.debugMode = debugMode;
         return this;
+    }
+
+    private void initStatus() {
+        this.status = new HashMap<>();
+        this.status.put(CmdEnum.GRAB, 0);
+        this.status.put(CmdEnum.GRAB_TILT,0);
+        this.status.put(CmdEnum.ARM_CTRL,0);
+        this.status.put(CmdEnum.ELBOW_CTRL,0);
+        this.status.put(CmdEnum.HAND_TURN,0);
+        this.status.put(CmdEnum.HAND_CTRL,0);
     }
 
     public Controller add(CmdEnum cmd, int param) {
@@ -49,7 +70,10 @@ public class Controller {
             } else {
                 log.info(String.format(LOG_CMD, command.getCommand(), command.getValue()));
             }
-            characteristic.writeValue(bytes);
+            status.put(command.getCommand(), command.getValue());
+            if (!debugMode) {
+                characteristic.writeValue(bytes);
+            }
         }
     }
 }
