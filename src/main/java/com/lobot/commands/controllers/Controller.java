@@ -1,4 +1,4 @@
-package com.lobot.commands;
+package com.lobot.commands.controllers;
 
 import com.lobot.commands.domain.BotCommand;
 import com.lobot.commands.domain.CmdEnum;
@@ -6,23 +6,12 @@ import lombok.extern.java.Log;
 import tinyb.BluetoothGattCharacteristic;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Log(topic = "cmdlog")
-public class Controller {
+public class Controller extends BaseController {
 
     private List<BotCommand> commands;
-    private BluetoothGattCharacteristic characteristic;
-    private BuilderUtil builderUtil = new BuilderUtil();
-
-    private static final String LOG_WAIT = "WAIT %d";
-    private static final String LOG_CMD = "%s %d";
-    private static final String LOG_INTERRUPT = "WAIT INTERRUPTED";
-
-    public HashMap<CmdEnum, Integer> status = null;
-
-    private boolean debugMode = false;
 
     public Controller of(BluetoothGattCharacteristic characteristic) {
         return of(characteristic, false);
@@ -36,18 +25,12 @@ public class Controller {
         return this;
     }
 
-    private void initStatus() {
-        this.status = new HashMap<>();
-        this.status.put(CmdEnum.GRAB, 0);
-        this.status.put(CmdEnum.GRAB_TILT,0);
-        this.status.put(CmdEnum.ARM_CTRL,0);
-        this.status.put(CmdEnum.ELBOW_CTRL,0);
-        this.status.put(CmdEnum.HAND_TURN,0);
-        this.status.put(CmdEnum.HAND_CTRL,0);
+    private void addCommand(CmdEnum cmd, int param) {
+        commands.add(new BotCommand(cmd, param, 0L));
     }
 
     public Controller add(CmdEnum cmd, int param) {
-        commands.add(new BotCommand(cmd, param, 0L));
+        addCommand(cmd, param);
         return this;
     }
 

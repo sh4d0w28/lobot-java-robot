@@ -1,6 +1,6 @@
 package com.app;
 
-import com.lobot.commands.Controller;
+import com.lobot.commands.controllers.Controller;
 import com.lobot.commands.Validator;
 import com.lobot.commands.domain.CmdEnum;
 

@@ -1,5 +1,6 @@
 package com.lobot.commands;
 
+import com.lobot.commands.controllers.Controller;
 import com.lobot.commands.domain.CmdEnum;
 import org.junit.Before;
 import org.junit.Test;

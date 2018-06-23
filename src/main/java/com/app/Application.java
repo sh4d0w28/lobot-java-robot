@@ -1,6 +1,6 @@
 package com.app;
 
-import com.lobot.commands.Controller;
+import com.lobot.commands.controllers.Controller;
 import com.lobot.connect.Connector;
 import tinyb.BluetoothGattCharacteristic;
 import tinyb.BluetoothManager;

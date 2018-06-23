@@ -98,7 +98,7 @@ public class BuilderUtil {
         return buildCmd(CMD_SERV, (byte)0x06, Low, High);
     }
 
-    byte[] toBytes(CmdEnum command, Integer value) {
+    public byte[] toBytes(CmdEnum command, Integer value) {
 
         switch (command) {
             case GRAB:
